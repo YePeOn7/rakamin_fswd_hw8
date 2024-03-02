@@ -14,8 +14,18 @@ pool.connect((err, res) => {
     }
 })
 
-// app.get('/', (req, res) => {
-//     res.send("321");
-// })
+// only for test
+app.get('/', (req, res) => {
+    pool.query(`
+    SELECT * FROM film`, (err, result) => {
+        if(err){
+            res.status(500).json({message: "Internal server Error"});
+            console.log(err);
+        }
+        else{
+            res.send(result.rows);
+        }
+    })
+})
 
 app.listen(3000);
